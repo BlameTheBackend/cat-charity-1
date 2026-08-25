@@ -37,4 +37,4 @@ async def create_donation(
     new_donation = await donation_crud.create(
         donation, session)
     new_donation = await run_investing_process(new_donation, session)
-    return new_donation
+    return await donation_crud.save(new_donation, session)

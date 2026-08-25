@@ -45,7 +45,7 @@ async def create_charity_project(
     await check_name_duplicate(charity_project.name, session)
     new_project = await charity_project_crud.create(charity_project, session)
     await run_investing_process(new_project, session)
-    return new_project
+    return await charity_project_crud.save(new_project, session)
 
 
 @router.patch(
@@ -64,7 +64,7 @@ async def partially_update_charity_project(
     )
     project = await charity_project_crud.update(project, obj_in, session)
     await run_investing_process(project, session)
-    return project
+    return await charity_project_crud.save(project, session)
 
 
 @router.delete(

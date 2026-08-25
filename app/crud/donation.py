@@ -1,8 +1,8 @@
-from app.crud.base import CRUDBase
+from app.crud.investable import CRUDInvestable
 from app.models import Donation
 
 
-class DonationCRUD(CRUDBase):
+class DonationCRUD(CRUDInvestable):
     pass
 
 

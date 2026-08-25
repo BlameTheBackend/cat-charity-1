@@ -20,8 +20,6 @@ class CRUDBase:
         obj_in_data = obj_in.dict()
         db_obj = self.model(**obj_in_data)
         session.add(db_obj)
-        await session.commit()
-        await session.refresh(db_obj)
         return db_obj
 
     async def update(self, db_obj, obj_in, session: AsyncSession):
@@ -36,10 +34,8 @@ class CRUDBase:
         await session.commit()
         return db_obj
 
-    async def get_objs_for_investing(self, session: AsyncSession):
-        result = await session.execute(
-            select(self.model)
-            .where(self.model.fully_invested.is_(False))
-            .order_by(self.model.create_date, self.model.id)
-        )
-        return result.scalars().all()
+    async def save(self, db_obj, session: AsyncSession):
+        session.add(db_obj)
+        await session.commit()
+        await session.refresh(db_obj)
+        return db_obj

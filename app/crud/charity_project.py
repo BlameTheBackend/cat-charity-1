@@ -3,11 +3,11 @@ from typing import Optional
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.crud.base import CRUDBase
+from app.crud.investable import CRUDInvestable
 from app.models import CharityProject
 
 
-class CRUDCharityProject(CRUDBase):
+class CRUDCharityProject(CRUDInvestable):
 
     async def get_charity_project_id_by_name(
             self, project_name: str, session: AsyncSession) -> Optional[int]:
